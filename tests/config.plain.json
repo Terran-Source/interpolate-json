@@ -1,0 +1,11 @@
+{
+  "key": "value",
+  "ENV_VALUE": "CONFIG_VALUE",
+  "baseKey": "base",
+  "subKey": {
+    "baseKey": "dummy",
+    "envKey": "subEnv_VALUE"
+  },
+  "envKey": "ENV_VALUE",
+  "complex": "I have both key & ENV_VALUE & subKey.envKey & DOES_NOT_EXIST"
+}

@@ -48,4 +48,14 @@ describe('#interpolation.do(JSON)', function() {
         ` ${result.DOES_NOT_EXIST || ''}`
     );
   });
+  it('processed successfully with plain json', function() {
+    // arrange
+    const json = parse(path.resolve('config.plain.json'), 'utf8');
+    // act
+    const result = context.interpolation.do(json);
+    // assert
+    console.log(`result:${JSON.stringify(result, null, 2)}`);
+    expect(result).to.be.a('Object');
+    expect(result).to.deep.equal(json);
+  });
 });

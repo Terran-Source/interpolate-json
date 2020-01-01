@@ -15,6 +15,16 @@ describe('#interpolation.do(String)', function() {
       `Hi, my name is '${values.name}'. I'm ${values.age}`
     );
   });
+  it('processed successfully with plain string', function() {
+    // arrange
+    const str = "Hi, my name is 'David'. I'm 18";
+    // act
+    const result = context.interpolation.do(str);
+    // assert
+    console.log(`result:${result}`);
+    expect(result).to.be.a('string');
+    expect(result).to.be.equal("Hi, my name is 'David'. I'm 18");
+  });
   it('processed successfully with custom boundary', function() {
     // arrange
     const str = "Hi, my name is '{{name}}'. I'm {{age}}";
