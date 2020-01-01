@@ -64,4 +64,23 @@ describe('#interpolation.do(string)', function() {
       `Hi, my name is '${values.name}'. I'm ${values.age}`
     );
   });
+  it('processed successfully with custom boundary(with space), prefix only', function() {
+    // arrange
+    const str =
+      "Hi, my name is '{<!?#:   name'. I'm {<!?#:age. Url: http://bogus/{<!?#:urlId/dummy";
+    const values = {
+      name: 'David',
+      age: 18,
+      urlId: 'KUFKJbs_kvkjsfkksvbs.fjs'
+    };
+    const opt = { prefix: ' {<!?#:  ' };
+    // act
+    const result = context.interpolation.do(str, values, opt);
+    // assert
+    console.log(`result:${result}`);
+    expect(result).to.be.a('string');
+    expect(result).to.be.equal(
+      `Hi, my name is '${values.name}'. I'm ${values.age}. Url: http://bogus/${values.urlId}/dummy`
+    );
+  });
 });
