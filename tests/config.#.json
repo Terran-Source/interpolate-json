@@ -10,5 +10,5 @@
     }
   },
   "envKey": "${ENV_VALUE}",
-  "complex": "I have both ${key} & ${ENV_VALUE} & ${subKey.envKey} & ${subKey.deepSubKey.envKey} & ${DOES_NOT_EXIST}"
+  "complex": "I have both ${key} & ${ENV_VALUE} & ${subKey#envKey} & ${subKey#deepSubKey#envKey} & ${DOES_NOT_EXIST}"
 }

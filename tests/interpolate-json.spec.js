@@ -24,7 +24,7 @@ describe('#interpolation.do(JSON)', function() {
     expect(result.complex).to.be.equal(
       `I have both ${result.key} &` +
         ` ${result.ENV_VALUE} & ${result.subKey.envKey} &` +
-        ` ${result.DOES_NOT_EXIST || ''}`
+        ` ${result.subKey.deepSubKey.envKey} & ${result.DOES_NOT_EXIST || ''}`
     );
   });
   it('processed successfully with override values', function() {
@@ -45,7 +45,51 @@ describe('#interpolation.do(JSON)', function() {
     expect(result.complex).to.be.equal(
       `I have both ${result.key} &` +
         ` ${overrideVal.ENV_VALUE} & ${result.subKey.envKey} &` +
-        ` ${result.DOES_NOT_EXIST || ''}`
+        ` ${result.subKey.deepSubKey.envKey} & ${result.DOES_NOT_EXIST || ''}`
+    );
+  });
+  it("processed successfully with override values (custom subKeyPointer: '#')", function() {
+    // arrange
+    const json = parse(path.resolve('config.#.json'), 'utf8');
+    const overrideVal = { ENV_VALUE: 'ENV_VALUE' };
+    const options = { subKeyPointer: '#' };
+    // act
+    const result = context.interpolation.do(json, overrideVal, options);
+    // assert
+    console.log(`result:${JSON.stringify(result, null, 2)}`);
+    expect(result).to.be.a('Object');
+    expect(result.baseKey).to.be.equal(result.key);
+    expect(result.subKey.baseKey).to.be.equal(result.key);
+    expect(result.ENV_VALUE).to.be.equal(json.ENV_VALUE);
+    //expect(result.ENV_VALUE).to.be.equal(overrideVal.ENV_VALUE); // need discussion
+    expect(result.envKey).to.be.equal(overrideVal.ENV_VALUE);
+    expect(result.subKey.envKey).to.be.equal(`subEnv_${overrideVal.ENV_VALUE}`);
+    expect(result.complex).to.be.equal(
+      `I have both ${result.key} &` +
+        ` ${overrideVal.ENV_VALUE} & ${result.subKey.envKey} &` +
+        ` ${result.subKey.deepSubKey.envKey} & ${result.DOES_NOT_EXIST || ''}`
+    );
+  });
+  it("processed successfully with override values (custom prefix: '{{', suffix: '}}', subKeyPointer: '::')", function() {
+    // arrange
+    const json = parse(path.resolve('config.custom.json'), 'utf8');
+    const overrideVal = { ENV_VALUE: 'ENV_VALUE' };
+    const options = { prefix: '{{', suffix: '}}', subKeyPointer: '::' };
+    // act
+    const result = context.interpolation.do(json, overrideVal, options);
+    // assert
+    console.log(`result:${JSON.stringify(result, null, 2)}`);
+    expect(result).to.be.a('Object');
+    expect(result.baseKey).to.be.equal(result.key);
+    expect(result.subKey.baseKey).to.be.equal(result.key);
+    expect(result.ENV_VALUE).to.be.equal(json.ENV_VALUE);
+    //expect(result.ENV_VALUE).to.be.equal(overrideVal.ENV_VALUE); // need discussion
+    expect(result.envKey).to.be.equal(overrideVal.ENV_VALUE);
+    expect(result.subKey.envKey).to.be.equal(`subEnv_${overrideVal.ENV_VALUE}`);
+    expect(result.complex).to.be.equal(
+      `I have both ${result.key} &` +
+        ` ${overrideVal.ENV_VALUE} & ${result.subKey.envKey} &` +
+        ` ${result.subKey.deepSubKey.envKey} & ${result.DOES_NOT_EXIST || ''}`
     );
   });
   it('processed successfully with plain json', function() {

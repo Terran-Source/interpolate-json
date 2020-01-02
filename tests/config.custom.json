@@ -1,0 +1,14 @@
+{
+  "key": "value",
+  "ENV_VALUE": "CONFIG_VALUE",
+  "baseKey": "{{key}}",
+  "subKey": {
+    "baseKey": "{{key}}",
+    "envKey": "subEnv_{{ENV_VALUE}}",
+    "deepSubKey": {
+      "envKey": "deepEnv_{{ENV_VALUE}}"
+    }
+  },
+  "envKey": "{{ENV_VALUE}}",
+  "complex": "I have both {{key}} & {{ENV_VALUE}} & {{subKey::envKey}} & {{subKey::deepSubKey::envKey}} & {{DOES_NOT_EXIST}}"
+}

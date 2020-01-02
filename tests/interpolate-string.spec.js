@@ -70,8 +70,7 @@ describe('#interpolation.do(String)', function() {
   it('processed successfully with custom boundary(with space), prefix only', function() {
     // arrange
     const str =
-      //                          without suffix ->| |<- mind the gap before dot (.)
-      "Hi, my name is '{<!?#:   name'. I'm {<!?#:age . Url: http://bogus/{<!?#:urlId/dummy";
+      "Hi, my name is '{<!?#:   name'. I'm {<!?#:age. Url: http://bogus/{<!?#:urlId/dummy";
     const values = {
       name: 'David',
       age: 18,
