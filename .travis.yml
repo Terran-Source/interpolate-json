@@ -25,13 +25,13 @@ before_deploy:
   - gulp preBuild
   - cd dist
 deploy:
+  skip_cleanup: true
   on:
     branch: master
-    skip_cleanup: true
     tags: true
   tag: stable
   provider: npm
-  # ⋮
-  edge: true
+  # # ⋮
+  # edge: true
   email: $BUILDER_EMAIL
   api_key: $DEPL_ENC_KEY
