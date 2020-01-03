@@ -1,8 +1,9 @@
+os: linux
 dist: bionic
 language: node_js
 node_js:
   - lts/dubnium
-  - lts/erbium
+  # - lts/erbium
 before_install:
   # latest npm, gulp
   - npm i -g npm gulp-cli yarn
