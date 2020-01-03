@@ -31,7 +31,5 @@ deploy:
     tags: true
   tag: stable
   provider: npm
-  # # ⋮
-  # edge: true
   email: $BUILDER_EMAIL
   api_key: $DEPL_ENC_KEY
