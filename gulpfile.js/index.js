@@ -18,6 +18,7 @@ const excludedDirectories = [
   'node_modules',
   'examples',
   'gulpfile.js',
+  '.vs',
   '.vscode'
 ];
 const excludes = dirs => dirs.map(dir => `!.${safeDir(dir)}/**`);
@@ -29,18 +30,22 @@ const safeDir = dir =>
     : dir.toString().startsWith('/')
     ? dir
     : `/${dir}`;
-const scriptDir = dir => `.${safeDir(dir)}/**/*.${scriptExt}`;
+const scriptDir = dir => [
+  `.${safeDir(dir)}/**/*.${scriptExt}`,
+  `.${safeDir(dir)}/**/.*/**/*.${scriptExt}`
+];
 const copyDir = dir => [
   `.${safeDir(dir)}/**`,
   `.${safeDir(dir)}/**/.*`,
-  `!${scriptDir(dir)}`
+  `.${safeDir(dir)}/**/.*/**`,
+  ...scriptDir(dir).map(d => `!${d}`)
 ];
 const outputDir = dir => `.${safeDir(outputDirectory)}${safeDir(dir)}`;
 let allExcluded = [];
 const compressScripts = (dir, isCustom) =>
   require(`./${compressJob}`)(
     `${compressJob}-${type(isCustom) !== 'number' ? isCustom : dir}`,
-    [scriptDir(dir), ...allExcluded],
+    [...scriptDir(dir), ...allExcluded],
     outputDir(dir)
   );
 const copyScripts = (dir, isCustom) =>
