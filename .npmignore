@@ -105,6 +105,7 @@ dist
 
 #additional
 Thumbs.db
+dist/
 www/
 .vs/
 
@@ -114,7 +115,10 @@ www/
 tests/
 lib/**.spec.js
 .vscode/
+gulpfile.js
+gulpfile.js/
 .nvmrc
 .jshintrc
 .editorconfig
 .prettierrc
+.travis.yml

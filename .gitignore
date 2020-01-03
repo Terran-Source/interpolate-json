@@ -105,5 +105,6 @@ dist
 
 #additional
 Thumbs.db
+dist/
 www/
 .vs/

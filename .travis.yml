@@ -1,0 +1,34 @@
+dist: bionic
+language: node_js
+node_js:
+  - lts/dubnium
+  - lts/erbium
+before_install:
+  # latest npm, gulp
+  - npm i -g npm gulp-cli yarn
+  ## latest yarn
+  # - curl -o- -L https://yarnpkg.com/install.sh | bash # -s -- --version [version]
+  # - export PATH="$HOME/.yarn/bin:$PATH"
+cache:
+  yarn: true
+install:
+  - yarn install
+before_script:
+  - gulp
+  - cd dist
+  - yarn install
+script:
+  - npm test
+  - cd ..
+before_deploy:
+  - gulp preBuild
+  - cd dist
+deploy:
+  on:
+    branch: master
+    skip_cleanup: true
+    tags: true
+  tag: stable
+  provider: npm
+  email: $BUILDER_EMAIL
+  api_key: $DEPL_ENC_KEY
