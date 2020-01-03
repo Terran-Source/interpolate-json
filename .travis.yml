@@ -30,7 +30,7 @@ deploy:
   on:
     branch: master
     tags: true
-  tag: stable,latest
+  tag: latest
   provider: npm
   email:
     secure: qJK5RDdXDdzPwfK+7LqVryIh29ZegPwpacJjdqSbMq19VQr2B03nrAwfkfhGaFDwCZxMuV94Szld4NFIM1mkcBDopYqVb92hxS/usHyZnampX4QC3R68WdJMtiIPZGV5jzCFIN/GHfk/3JPOe6lHjuEEHmvqBFu28wjhC8SkUe/dkyYR8h8skmNw5UCu9vBLSah/i8C74c6E6dS8G+T8AteibpInj61pe7fbaXHLLp0Puqo9E5Ju/r3eS/jcnJgWUJ4hmdVx0whgnQwXiyNzM3wRHOHGEEnJvZluFH6B7X8s1ol+a+6pIxyyPVgYHeoFc7QrKKAbW3odzZgiG3sx2XBMZSisXBaytPiYeu+KiVzaz+lpweBVk87uFhVkssBqmUa/Z8/r7hQeUrteCTllrfIwlilwpkc21yVsahwRgn05dE11lXFj/J0ILhj483E50YKY7eYQ3lAzrWi8e0VjL22re9PTnTaKjeJUhHYOsp3Rqt+Pvd9vKuW8TDByUE2QLNJZ46t84MUbdlDF0zSEIH07fkBpb3AuSG1aOA/TlhaEoQOLt9s/uvECXn84zn+8NSfovnJo9IRtgH6q+gBdWhT5L963pNcyaBQY5KeIhsPD0Lvmw+NVsYZpjLfZ+hjewaj723Pk4RXiBxMgWYd04GvacdcWUJToEBUgn7zWVgk=
