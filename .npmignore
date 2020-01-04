@@ -115,6 +115,7 @@ www/
 tests/
 lib/**.spec.js
 .vscode/
+.github/
 gulpfile.js
 gulpfile.js/
 .nvmrc

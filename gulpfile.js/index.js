@@ -19,7 +19,8 @@ const excludedDirectories = [
   'examples',
   'gulpfile.js',
   '.vs',
-  '.vscode'
+  '.vscode',
+  '.github'
 ];
 const excludes = dirs => dirs.map(dir => `!.${safeDir(dir)}/**`);
 const safeDir = dir =>
