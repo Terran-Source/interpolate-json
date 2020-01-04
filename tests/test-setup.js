@@ -1,5 +1,3 @@
-const chai = require('chai');
-
 before(() => {
   // global arrange
   this.interpolation = require('../');
