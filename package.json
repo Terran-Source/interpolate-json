@@ -50,5 +50,8 @@
     "gulp-terser": "^1.2.0",
     "mocha": "^6.2.2",
     "readable-stream": "^3.4.0"
+  },
+  "engines": {
+    "node": ">=6.17.1"
   }
 }
