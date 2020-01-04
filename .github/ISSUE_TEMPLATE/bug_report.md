@@ -1,7 +1,7 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
+about: Something Went wrong
+title: '✍️'
 labels: ''
 assignees: ''
 
@@ -13,8 +13,9 @@ A clear and concise description of what the bug is.
 **To Reproduce**
 Steps to reproduce the behavior:
 1. Code snippet:
+   
     `'...'`
-2. Run command: `....`
+2. Run command: `$ ....`
 3. Error: `Exception:...`
 
 **Expected behavior**
