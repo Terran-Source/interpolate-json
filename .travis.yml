@@ -2,7 +2,7 @@ os: linux
 dist: bionic
 language: node_js
 node_js:
-  - lts/boron
+  - 8
   - lts/carbon
   - lts/dubnium
   - lts/erbium
