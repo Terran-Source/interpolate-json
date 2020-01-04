@@ -7,12 +7,12 @@ const parse = (filePath, encoding) => {
   return !filePath ? {} : JSON.parse(fs.readFileSync(filePath, encoding));
 };
 
-describe('#interpolation.do(JSON)', function() {
+describe('#interpolation.expand(JSON)', function() {
   it('processed successfully', function() {
     // arrange
     const json = parse(path.resolve('config.json'), 'utf8');
     // act
-    const result = context.interpolation.do(json);
+    const result = context.interpolation.expand(json);
     // assert
     console.log(`result:${JSON.stringify(result, null, 2)}`);
     expect(result).to.be.a('Object');
@@ -32,7 +32,7 @@ describe('#interpolation.do(JSON)', function() {
     const json = parse(path.resolve('config.json'), 'utf8');
     const overrideVal = { ENV_VALUE: 'ENV_VALUE' };
     // act
-    const result = context.interpolation.do(json, overrideVal);
+    const result = context.interpolation.expand(json, overrideVal);
     // assert
     console.log(`result:${JSON.stringify(result, null, 2)}`);
     expect(result).to.be.a('Object');
@@ -54,7 +54,7 @@ describe('#interpolation.do(JSON)', function() {
     const overrideVal = { ENV_VALUE: 'ENV_VALUE' };
     const options = { subKeyPointer: '#' };
     // act
-    const result = context.interpolation.do(json, overrideVal, options);
+    const result = context.interpolation.expand(json, overrideVal, options);
     // assert
     console.log(`result:${JSON.stringify(result, null, 2)}`);
     expect(result).to.be.a('Object');
@@ -76,7 +76,7 @@ describe('#interpolation.do(JSON)', function() {
     const overrideVal = { ENV_VALUE: 'ENV_VALUE' };
     const options = { prefix: '{{', suffix: '}}', subKeyPointer: '::' };
     // act
-    const result = context.interpolation.do(json, overrideVal, options);
+    const result = context.interpolation.expand(json, overrideVal, options);
     // assert
     console.log(`result:${JSON.stringify(result, null, 2)}`);
     expect(result).to.be.a('Object');
@@ -96,7 +96,7 @@ describe('#interpolation.do(JSON)', function() {
     // arrange
     const json = parse(path.resolve('config.plain.json'), 'utf8');
     // act
-    const result = context.interpolation.do(json);
+    const result = context.interpolation.expand(json);
     // assert
     console.log(`result:${JSON.stringify(result, null, 2)}`);
     expect(result).to.be.a('Object');

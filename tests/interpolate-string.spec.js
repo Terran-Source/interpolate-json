@@ -1,13 +1,13 @@
 const context = require('./test-setup');
 const expect = require('chai').expect;
 
-describe('#interpolation.do(String)', function() {
+describe('#interpolation.expand(String)', function() {
   it('processed successfully', function() {
     // arrange
     const str = "Hi, my name is '${name}'. I'm ${age}";
     const values = { name: 'David', age: 18 };
     // act
-    const result = context.interpolation.do(str, values);
+    const result = context.interpolation.expand(str, values);
     // assert
     console.log(`result:${result}`);
     expect(result).to.be.a('string');
@@ -19,7 +19,7 @@ describe('#interpolation.do(String)', function() {
     // arrange
     const str = "Hi, my name is 'David'. I'm 18";
     // act
-    const result = context.interpolation.do(str);
+    const result = context.interpolation.expand(str);
     // assert
     console.log(`result:${result}`);
     expect(result).to.be.a('string');
@@ -31,7 +31,7 @@ describe('#interpolation.do(String)', function() {
     const values = { name: 'David', age: 18 };
     const opt = { prefix: '{{', suffix: '}}' };
     // act
-    const result = context.interpolation.do(str, values, opt);
+    const result = context.interpolation.expand(str, values, opt);
     // assert
     console.log(`result:${result}`);
     expect(result).to.be.a('string');
@@ -45,7 +45,7 @@ describe('#interpolation.do(String)', function() {
     const values = { name: 'David', age: 18 };
     const opt = { prefix: '{:', suffix: ':}' };
     // act
-    const result = context.interpolation.do(str, values, opt);
+    const result = context.interpolation.expand(str, values, opt);
     // assert
     console.log(`result:${result}`);
     expect(result).to.be.a('string');
@@ -59,7 +59,7 @@ describe('#interpolation.do(String)', function() {
     const values = { name: 'David', age: 18 };
     const opt = { prefix: ' {<!?#:  ', suffix: ' :#?!>} ' };
     // act
-    const result = context.interpolation.do(str, values, opt);
+    const result = context.interpolation.expand(str, values, opt);
     // assert
     console.log(`result:${result}`);
     expect(result).to.be.a('string');
@@ -78,7 +78,7 @@ describe('#interpolation.do(String)', function() {
     };
     const opt = { prefix: ' {<!?#:  ' };
     // act
-    const result = context.interpolation.do(str, values, opt);
+    const result = context.interpolation.expand(str, values, opt);
     // assert
     console.log(`result:${result}`);
     expect(result).to.be.a('string');
