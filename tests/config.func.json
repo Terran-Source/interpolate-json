@@ -8,18 +8,18 @@
   "baseKey": "${key}",
   "subKey": {
     "baseKey": "${key}",
-    "mathKey": "${mathKey}",
+    "mathKey": "${*mathKey}",
     "envKey": "subEnv_${ENV_VALUE}",
     "deepSubKey": {
       "envKey": "deepEnv_${ENV_VALUE}"
     }
   },
   "envKey": "${ENV_VALUE}",
-  "complex": "I have both ${key} & ${ENV_VALUE} & ${subKey.envKey} & ${= ${'subKey.deepSubKey.envKey} + ${'subKey.envKey} } & ${DOES_NOT_EXIST}",
-  "expression": "${= !${'DOES_NOT_EXIST} && ${boolKey} ? ${subKey.deepSubKey.envKey} :${subKey.envKey}}",
-  "mathKeyInt": "${=Math.round(Math.abs(${mathKey}))}",
-  "basicMathCheck": "mathKey: ${mathKey}, subMathKey: ${subKey.mathKey}, sum:${= ${mathKey}+5}, subtract:${= ${mathKey}-5}, mult:${= ${subKey.mathKey}*5}, div:${= ${mathKey}/5}",
-  "advancedMathCheck": "mathKey: ${mathKey}, subMathKey: ${subKey.mathKey}, mathKeyInt: ${mathKeyInt}, PI:${= Math.PI}, random:${= Math.floor(Math.random() * (${mathKeyInt}+1))}, pow(3):${= Math.pow(${subKey.mathKey},3)}, log:${= Math.log(${mathKeyInt})}",
-  "superExpression": "${= ${complex} +'-:-'+${expression} +'-:-'+${basicMathCheck} +'-:-'+${advancedMathCheck}}",
+  "complex": "I have both ${key} & ${ENV_VALUE} & ${subKey.envKey} & ${= ${subKey.deepSubKey.envKey} + ${subKey.envKey}=} & ${DOES_NOT_EXIST}",
+  "expression": "${= !${DOES_NOT_EXIST} && ${boolKey} ? ${subKey.deepSubKey.envKey} :${subKey.envKey}=}",
+  "mathKeyInt": "${=Math.round(Math.abs(${mathKey}))=}",
+  "basicMathCheck": "mathKey: ${mathKey}, subMathKey: ${subKey.mathKey}, sum:${= ${mathKey}+5=}, subtract:${= ${mathKey}-5=}, mult:${= ${subKey.mathKey}*5=}, div:${= ${mathKey}/5=}",
+  "advancedMathCheck": "mathKey: ${mathKey}, subMathKey: ${subKey.mathKey}, mathKeyInt: ${mathKeyInt}, PI:${= Math.PI=}, random:${= Math.floor(Math.random() * (${mathKeyInt}+1))=}, pow(3):${= Math.pow(${subKey.mathKey},3)=}, log:${= Math.log(${mathKeyInt})=}",
+  "superExpression": "Hoho: ${= ${complex} +'-:-'+${expression} +'-:-'+${basicMathCheck} +'-:-'+${advancedMathCheck}=}",
   "superExpressionValue": "superExpression: ${superExpression}"
 }
