@@ -113,13 +113,13 @@ www/
 # npmignore - content above this line is automatically generated and modifications may be omitted
 # see npmjs.com/npmignore for more details.
 tests/
-lib/**.spec.js
+*.spec.js
 .vscode/
 .github/
 gulpfile.js
 gulpfile.js/
-.nvmrc
-.jshintrc
 .editorconfig
+.jshintrc
+.nvmrc
 .prettierrc
 .travis.yml
