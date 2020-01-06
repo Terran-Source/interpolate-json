@@ -135,7 +135,7 @@ The values for the interpolated parameter placeholders (i.e. `${param-name}`). I
   escapeSpecifier: '*'
 }
 ```
-more in [`Configurations`](#Configurations:)
+more in [`Configurations`](#Configurations)
 
 #### returns:
 
@@ -145,7 +145,7 @@ Based upon the type of the [`obj`](#obj). In case of any unsupported types, orig
 
 > [Note: it does not change the actual [`obj`](#obj)]
 
-#### Configurations:
+#### Configurations
 
 (TODO:) Each section can be individually set through Environment Variables INTERPOLATE_OPTION_[*CONFIGNAME*] (or you can set it inside json [`obj`](#obj) or [`values`](#values). [Example](tests/config.func.custom.json))
 
@@ -155,7 +155,7 @@ Based upon the type of the [`obj`](#obj). In case of any unsupported types, orig
 - default: `false`
 - Environment Variable override: `INTERPOLATE_OPTION_DEBUG`
 
-Set it true turn on logging to help debug why certain things are not working as expected. Can be turned on [globally](<#debug()>).
+Set it true to turn on logging to help debug why certain things are not working as expected. Can be turned on [globally](<#debug()>).
 
 ###### prefix
 
