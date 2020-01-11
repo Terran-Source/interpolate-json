@@ -4,7 +4,7 @@ before(() => {
 });
 
 beforeEach(() => {
-  // global reset
+  // global debug set to true
   this.interpolation.debug();
 });
 

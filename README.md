@@ -150,7 +150,7 @@ Based upon the type of the [`obj`](#obj). In case of any unsupported types, orig
 
 #### Configurations
 
-Each section can be individually set through Environment Variables INTERPOLATE_OPTION_[*CONFIGNAME*] (or you can also set it inside [`values`](#values) or json type [`obj`](#obj). See an extreme [Example](tests/config.func.custom.json))
+Each section can be individually set through Environment Variables INTERPOLATE_OPTION_[*CONFIGNAME*] (or you can also set it inside [`values`](#values) or json type [`obj`](#obj). See an extreme [Example](tests/config.func.custom.option.json))
 
 ###### debug
 

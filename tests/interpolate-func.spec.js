@@ -106,7 +106,7 @@ describe('#interpolation.expand(JSON)', function() {
   });
   it("processed successfully with override values in object (custom prefix: '{{', suffix: '}}', subKeyPointer: '::')", function() {
     // arrange
-    const json = parse(path.resolve('config.func.custom.json'), 'utf8');
+    const json = parse(path.resolve('config.func.custom.option.json'), 'utf8');
     const overrideVal = { ENV_VALUE: 'ENV_VALUE', MATH_KEY: -334.67 };
     //const options = { prefix: '{{', suffix: '}}', subKeyPointer: '::' };
     // act
