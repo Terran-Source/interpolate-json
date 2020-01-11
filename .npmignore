@@ -123,5 +123,3 @@ gulpfile.js/
 .nvmrc
 .prettierrc
 .travis.yml
-LICENSE
-*.md
