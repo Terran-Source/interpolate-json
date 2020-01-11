@@ -7,7 +7,7 @@
   "MATH_KEY": -123.56,
   "mathKey": "{{*MATH_KEY}}",
   "BOOL_KEY": true,
-  "boolKey": "${*BOOL_KEY}",
+  "boolKey": "{{*BOOL_KEY}}",
   "baseKey": "{{key}}",
   "subKey": {
     "baseKey": "{{key}}",

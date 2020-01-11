@@ -104,4 +104,29 @@ describe('#interpolation.expand(JSON)', function() {
     );
     expect(result.mathKey).to.be.equal(curMathKey);
   });
+  it("processed successfully with override values in object (custom prefix: '{{', suffix: '}}', subKeyPointer: '::')", function() {
+    // arrange
+    const json = parse(path.resolve('config.func.custom.json'), 'utf8');
+    const overrideVal = { ENV_VALUE: 'ENV_VALUE', MATH_KEY: -334.67 };
+    //const options = { prefix: '{{', suffix: '}}', subKeyPointer: '::' };
+    // act
+    const result = context.interpolation.expand(json, overrideVal); //, options);
+    const curMathKey = overrideVal.MATH_KEY;
+    // assert
+    console.log(`result:${JSON.stringify(result, null, 2)}`);
+    expect(result).to.be.a('Object');
+    expect(result.baseKey).to.be.equal(result.key);
+    expect(result.subKey.baseKey).to.be.equal(result.key);
+    expect(result.ENV_VALUE).to.be.equal(json.ENV_VALUE);
+    //expect(result.ENV_VALUE).to.be.equal(overrideVal.ENV_VALUE); // need discussion
+    expect(result.envKey).to.be.equal(overrideVal.ENV_VALUE);
+    expect(result.subKey.envKey).to.be.equal(`subEnv_${overrideVal.ENV_VALUE}`);
+    expect(result.complex).to.be.equal(
+      `I have both ${result.key} &` +
+        ` ${overrideVal.ENV_VALUE} & ${result.subKey.envKey} &` +
+        ` ${result.subKey.deepSubKey.envKey + result.subKey.envKey} &` +
+        ` ${result.DOES_NOT_EXIST || ''}`
+    );
+    expect(result.mathKey).to.be.equal(curMathKey);
+  });
 });

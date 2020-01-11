@@ -123,3 +123,4 @@ gulpfile.js/
 .nvmrc
 .prettierrc
 .travis.yml
+*.md

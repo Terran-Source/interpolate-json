@@ -2,16 +2,17 @@
 
 [![Travis (.org)](https://img.shields.io/travis/Terran-Source/interpolate-json?logo=travis&style=plastic)](https://travis-ci.org/Terran-Source/interpolate-json) [![node](https://img.shields.io/node/v/interpolate-json?logo=nodejs&style=plastic)](https://www.npmjs.com/package/interpolate-json) [![GitHub](https://img.shields.io/github/license/Terran-Source/interpolate-json?logo=github&style=plastic)](LICENSE)
 
-Interpolate a Javascript Object or string with json - Advanced
+Interpolate a Javascript Object or string with json - Advanced (or ***Substitution***, as others may like to call it).
 
-Minimalist & lightweight ;) approach to handle interpolation, which packs way more punch than simple string replacement.
+Minimalist & lightweight ;) approach to handle interpolation, which packs way more punch than simple string *parameter* replacement.
 
 Supports:
 
 1. `${string}` interpolation
 2. `${json}` interpolation
 3. `${multi.level}` json notation
-4. single `${= JavaScript.expression() =}`
+4. single `${= JavaScript.expression() =}` evaluation
+5. custom `{{parameter boundary}}` declaration
 
 ## Install
 
@@ -35,7 +36,7 @@ const { expand } = require('interpolate-json');
 #### string
 
 ```javascript
-// for Strings
+// String
 let someString = 'I want to be ${character} in ${business.type} by being a ${business.post}';
 let values = {
   character: 'a Hero',
@@ -99,7 +100,9 @@ console.log(expand(myJson));
 
 ```
 
-Notice that `${==}` notation. It's a cool way to use JavaScript expression (not expression<u>_s_</u>, yet, just a single line).
+> Notice that `${==}` notation. It's a cool way to use JavaScript expression (not expression<u>_s_</u>, yet, just a single line).
+
+
 
 ## Definition
 
@@ -147,7 +150,7 @@ Based upon the type of the [`obj`](#obj). In case of any unsupported types, orig
 
 #### Configurations
 
-(TODO:) Each section can be individually set through Environment Variables INTERPOLATE_OPTION_[*CONFIGNAME*] (or you can set it inside json [`obj`](#obj) or [`values`](#values). [Example](tests/config.func.custom.json))
+Each section can be individually set through Environment Variables INTERPOLATE_OPTION_[*CONFIGNAME*] (or you can also set it inside [`values`](#values) or json type [`obj`](#obj). See an extreme [Example](tests/config.func.custom.json))
 
 ###### debug
 
@@ -155,7 +158,7 @@ Based upon the type of the [`obj`](#obj). In case of any unsupported types, orig
 - default: `false`
 - Environment Variable override: `INTERPOLATE_OPTION_DEBUG`
 
-Set it true to turn on logging to help debug why certain things are not working as expected. Can be turned on [globally](<#debug()>).
+Set it true to turn on logging to help debug why certain things are not working as expected. Can be turned on [globally](<#debug-1>).
 
 ###### prefix
 
