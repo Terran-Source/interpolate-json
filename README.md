@@ -150,7 +150,7 @@ Based upon the type of the [`obj`](#obj). In case of any unsupported types, orig
 
 #### Configurations
 
-Each section can be individually set through Environment Variables INTERPOLATE_OPTION_[*CONFIGNAME*] (or you can also set it inside [`values`](#values) or json type [`obj`](#obj). See an extreme [Example](tests/config.func.custom.option.json))
+Each section can be individually set through Environment Variables INTERPOLATE_OPTION_[*CONFIGNAME*] (or you can also set it inside [`values`](#values) or `json` type [`obj`](#obj). See an extreme [Example](tests/config.func.custom.option.json))
 
 ###### debug
 
@@ -228,6 +228,8 @@ The notation after [`prefix`](#prefix) & before [`suffix`](#suffix) to describe 
 
 The notation after [`prefix`](#prefix) to escape string expression for certain data-types (like number, boolean etc.). Must not be same as any of [`prefix`](#prefix), [`suffix`](#suffix), [`subKeyPointer`](#subKeyPointer) or [`funcSpecifier`](#funcSpecifier).
 
+> This option is only applicable to `json` type [`obj`](#obj)
+
 > It should not also be touched either unless really needed. Should be a single character (preferably a special character, e.g. #, =, *, <, >, ~ etc).
 
 ```javascript
@@ -254,6 +256,16 @@ const interpolation = require('interpolate-json');
 #### expand()
 
 Described so far since [`Declaration`](#Declaration) & [`Definition`](#Definition).
+
+```javascript
+// Syntax I
+const interpolation = require('interpolate-json');
+interpolation.expand(obj, value);
+
+// Syntax II
+const { expand } = require('interpolate-json');
+expand(obj, value);
+```
 
 #### debug()
 
