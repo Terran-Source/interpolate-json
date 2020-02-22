@@ -14,6 +14,7 @@ describe('#interpolation.expand(JSON)', function() {
     // act
     const result = context.interpolation.expand(json);
     const curMathKey = result.MATH_KEY;
+    const curMathKeyInt = Math.round(Math.abs(curMathKey));
     // assert
     console.log(`result:${JSON.stringify(result, null, 2)}`);
     expect(result).to.be.a('Object');
@@ -29,14 +30,16 @@ describe('#interpolation.expand(JSON)', function() {
         ` ${result.DOES_NOT_EXIST || ''}`
     );
     expect(result.mathKey).to.be.equal(curMathKey);
+    expect(result.subKey.mathKeyEven).to.be.equal(curMathKeyInt % 2 == 0);
   });
   it('processed successfully with override values', function() {
     // arrange
     const json = parse(path.resolve('config.func.json'), 'utf8');
-    const overrideVal = { ENV_VALUE: 'ENV_VALUE', MATH_KEY: -334.67 };
+    const overrideVal = { ENV_VALUE: 'ENV_VALUE', MATH_KEY: -334.27 };
     // act
     const result = context.interpolation.expand(json, overrideVal);
     const curMathKey = overrideVal.MATH_KEY;
+    const curMathKeyInt = Math.round(Math.abs(curMathKey));
     // assert
     console.log(`result:${JSON.stringify(result, null, 2)}`);
     expect(result).to.be.a('Object');
@@ -53,6 +56,7 @@ describe('#interpolation.expand(JSON)', function() {
         ` ${result.DOES_NOT_EXIST || ''}`
     );
     expect(result.mathKey).to.be.equal(curMathKey);
+    expect(result.subKey.mathKeyEven).to.be.equal(curMathKeyInt % 2 == 0);
   });
   it("processed successfully with override values (custom subKeyPointer: '#')", function() {
     // arrange
@@ -62,6 +66,7 @@ describe('#interpolation.expand(JSON)', function() {
     // act
     const result = context.interpolation.expand(json, overrideVal, options);
     const curMathKey = overrideVal.MATH_KEY;
+    const curMathKeyInt = Math.round(Math.abs(curMathKey));
     // assert
     console.log(`result:${JSON.stringify(result, null, 2)}`);
     expect(result).to.be.a('Object');
@@ -78,6 +83,7 @@ describe('#interpolation.expand(JSON)', function() {
         ` ${result.DOES_NOT_EXIST || ''}`
     );
     expect(result.mathKey).to.be.equal(curMathKey);
+    expect(result.subKey.mathKeyEven).to.be.equal(curMathKeyInt % 2 == 0);
   });
   it("processed successfully with override values (custom prefix: '{{', suffix: '}}', subKeyPointer: '::')", function() {
     // arrange
@@ -87,6 +93,7 @@ describe('#interpolation.expand(JSON)', function() {
     // act
     const result = context.interpolation.expand(json, overrideVal, options);
     const curMathKey = overrideVal.MATH_KEY;
+    const curMathKeyInt = Math.round(Math.abs(curMathKey));
     // assert
     console.log(`result:${JSON.stringify(result, null, 2)}`);
     expect(result).to.be.a('Object');
@@ -103,6 +110,7 @@ describe('#interpolation.expand(JSON)', function() {
         ` ${result.DOES_NOT_EXIST || ''}`
     );
     expect(result.mathKey).to.be.equal(curMathKey);
+    expect(result.subKey.mathKeyEven).to.be.equal(curMathKeyInt % 2 == 0);
   });
   it("processed successfully with override values in object (custom prefix: '{{', suffix: '}}', subKeyPointer: '::')", function() {
     // arrange
@@ -112,6 +120,7 @@ describe('#interpolation.expand(JSON)', function() {
     // act
     const result = context.interpolation.expand(json, overrideVal); //, options);
     const curMathKey = overrideVal.MATH_KEY;
+    const curMathKeyInt = Math.round(Math.abs(curMathKey));
     // assert
     console.log(`result:${JSON.stringify(result, null, 2)}`);
     expect(result).to.be.a('Object');
@@ -128,5 +137,6 @@ describe('#interpolation.expand(JSON)', function() {
         ` ${result.DOES_NOT_EXIST || ''}`
     );
     expect(result.mathKey).to.be.equal(curMathKey);
+    expect(result.subKey.mathKeyEven).to.be.equal(curMathKeyInt % 2 == 0);
   });
 });
