@@ -18,6 +18,7 @@
     "javascript-interpolation",
     "json-interpolation",
     "string-interpolation",
+    "substitution",
     "node",
     "nodejs"
   ],
