@@ -1,6 +1,6 @@
 ## 2.0.0
-Changes
-- declaration syntax. 
+#### Changes
+- declaration syntax.
   ```javascript
   // declare the variable at the beginning
   const interpolation = require('interpolate-json').interpolation;
@@ -9,6 +9,9 @@ Changes
   ```
 - removed `reset()`
 - `subKeyPointer` is restricted to dot(`.`), hash(`#`), underscore(`_`) & colon(`:`) (or it's multiple, like: `::` etc)
+- `funcSpecifier` is fixed to equal(`=`)
+- `escapeSpecifier` is fixed to star(`*`)
+- improved coding standards
 
 ## 1.0.0
 - first major release :)
@@ -27,7 +30,8 @@ let values = {
   character: 'a Hero',
   business: {
     type: 'saving people',
-    post: 'Doctor' }
+    post: 'Doctor',
+  },
 };
 someString = interpolation.expand(someString, values);
 console.log(someString);
