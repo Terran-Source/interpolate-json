@@ -7,8 +7,8 @@ const parse = (filePath, encoding) => {
   return !filePath ? {} : JSON.parse(fs.readFileSync(filePath, encoding));
 };
 
-describe('#interpolation.expand(JSON)', function() {
-  it('processed successfully', function() {
+describe('#interpolation.expand(JSON)', function () {
+  it('processed successfully', function () {
     // arrange
     const json = parse(path.resolve('config.json'), 'utf8');
     // act
@@ -27,7 +27,7 @@ describe('#interpolation.expand(JSON)', function() {
         ` ${result.subKey.deepSubKey.envKey} & ${result.DOES_NOT_EXIST || ''}`
     );
   });
-  it('processed successfully with override values', function() {
+  it('processed successfully with override values', function () {
     // arrange
     const json = parse(path.resolve('config.json'), 'utf8');
     const overrideVal = { ENV_VALUE: 'ENV_VALUE' };
@@ -48,7 +48,7 @@ describe('#interpolation.expand(JSON)', function() {
         ` ${result.subKey.deepSubKey.envKey} & ${result.DOES_NOT_EXIST || ''}`
     );
   });
-  it("processed successfully with override values (custom subKeyPointer: '#')", function() {
+  it("processed successfully with override values (custom subKeyPointer: '#')", function () {
     // arrange
     const json = parse(path.resolve('config.#.json'), 'utf8');
     const overrideVal = { ENV_VALUE: 'ENV_VALUE' };
@@ -70,7 +70,7 @@ describe('#interpolation.expand(JSON)', function() {
         ` ${result.subKey.deepSubKey.envKey} & ${result.DOES_NOT_EXIST || ''}`
     );
   });
-  it("processed successfully with override values (custom prefix: '{{', suffix: '}}', subKeyPointer: '::')", function() {
+  it("processed successfully with override values (custom prefix: '{{', suffix: '}}', subKeyPointer: '::')", function () {
     // arrange
     const json = parse(path.resolve('config.custom.json'), 'utf8');
     const overrideVal = { ENV_VALUE: 'ENV_VALUE' };
@@ -92,7 +92,7 @@ describe('#interpolation.expand(JSON)', function() {
         ` ${result.subKey.deepSubKey.envKey} & ${result.DOES_NOT_EXIST || ''}`
     );
   });
-  it('processed successfully with plain json', function() {
+  it('processed successfully with plain json', function () {
     // arrange
     const json = parse(path.resolve('config.plain.json'), 'utf8');
     // act

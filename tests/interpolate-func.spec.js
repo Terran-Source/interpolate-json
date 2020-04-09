@@ -7,8 +7,8 @@ const parse = (filePath, encoding) => {
   return !filePath ? {} : JSON.parse(fs.readFileSync(filePath, encoding));
 };
 
-describe('#interpolation.expand(JSON)', function() {
-  it('processed successfully', function() {
+describe('#interpolation.expand(JSON)', function () {
+  it('processed successfully', function () {
     // arrange
     const json = parse(path.resolve('config.func.json'), 'utf8');
     // act
@@ -32,7 +32,7 @@ describe('#interpolation.expand(JSON)', function() {
     expect(result.mathKey).to.be.equal(curMathKey);
     expect(result.subKey.mathKeyEven).to.be.equal(curMathKeyInt % 2 == 0);
   });
-  it('processed successfully with override values', function() {
+  it('processed successfully with override values', function () {
     // arrange
     const json = parse(path.resolve('config.func.json'), 'utf8');
     const overrideVal = { ENV_VALUE: 'ENV_VALUE', MATH_KEY: -334.27 };
@@ -58,7 +58,7 @@ describe('#interpolation.expand(JSON)', function() {
     expect(result.mathKey).to.be.equal(curMathKey);
     expect(result.subKey.mathKeyEven).to.be.equal(curMathKeyInt % 2 == 0);
   });
-  it("processed successfully with override values (custom subKeyPointer: '#')", function() {
+  it("processed successfully with override values (custom subKeyPointer: '#')", function () {
     // arrange
     const json = parse(path.resolve('config.func.#.json'), 'utf8');
     const overrideVal = { ENV_VALUE: 'ENV_VALUE', MATH_KEY: -334.67 };
@@ -85,7 +85,7 @@ describe('#interpolation.expand(JSON)', function() {
     expect(result.mathKey).to.be.equal(curMathKey);
     expect(result.subKey.mathKeyEven).to.be.equal(curMathKeyInt % 2 == 0);
   });
-  it("processed successfully with override values (custom prefix: '{{', suffix: '}}', subKeyPointer: '::')", function() {
+  it("processed successfully with override values (custom prefix: '{{', suffix: '}}', subKeyPointer: '::')", function () {
     // arrange
     const json = parse(path.resolve('config.func.custom.json'), 'utf8');
     const overrideVal = { ENV_VALUE: 'ENV_VALUE', MATH_KEY: -334.67 };
@@ -112,7 +112,7 @@ describe('#interpolation.expand(JSON)', function() {
     expect(result.mathKey).to.be.equal(curMathKey);
     expect(result.subKey.mathKeyEven).to.be.equal(curMathKeyInt % 2 == 0);
   });
-  it("processed successfully with override values in object (custom prefix: '{{', suffix: '}}', subKeyPointer: '::')", function() {
+  it("processed successfully with override values in object (custom prefix: '{{', suffix: '}}', subKeyPointer: '::')", function () {
     // arrange
     const json = parse(path.resolve('config.func.custom.option.json'), 'utf8');
     const overrideVal = { ENV_VALUE: 'ENV_VALUE', MATH_KEY: -334.67 };

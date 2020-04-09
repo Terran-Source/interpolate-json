@@ -1,6 +1,6 @@
 before(() => {
   // global arrange
-  this.interpolation = require('../');
+  this.interpolation = require('../').interpolation;
 });
 
 beforeEach(() => {
@@ -10,5 +10,5 @@ beforeEach(() => {
 
 afterEach(() => {
   // global reset
-  this.interpolation.reset();
+  this.interpolation.debug(false);
 });
