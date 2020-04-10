@@ -1,4 +1,4 @@
-# interpolate-json  [![NPM version](https://img.shields.io/npm/v/interpolate-json.svg?style=plastic)](https://www.npmjs.com/package/interpolate-json)
+# interpolate-json [![NPM version](https://img.shields.io/npm/v/interpolate-json.svg?style=plastic)](https://www.npmjs.com/package/interpolate-json)
 
 [![Travis (.org)](https://img.shields.io/travis/Terran-Source/interpolate-json?logo=travis&style=plastic)](https://travis-ci.org/Terran-Source/interpolate-json) [![node](https://img.shields.io/node/v/interpolate-json?logo=nodejs&style=plastic)](https://www.npmjs.com/package/interpolate-json) [![GitHub](https://img.shields.io/github/license/Terran-Source/interpolate-json?logo=github&style=plastic)](LICENSE)
 
@@ -30,7 +30,9 @@ yarn add interpolate-json
 
 ```javascript
 // declare the varible at the beginning
-const { expand } = require('interpolate-json');
+const interpolation = require('interpolate-json').interpolation;
+// or
+const { interpolation } = require('interpolate-json');
 ```
 
 #### string
@@ -42,16 +44,17 @@ let values = {
   character: 'a Hero',
   business: {
     type: 'saving people',
-    post: 'Doctor' }
+    post: 'Doctor',
+  },
 };
-someString = expand(someString, values);
+someString = interpolation.expand(someString, values);
 console.log(someString);
 // output:  I want to be a Hero in saving people by being a Doctor
 
 // or using ENVIRONMENT_VARIABLES
 // test-string.js
 let someString = "Hi, my name is '${USER_NAME}'. I'm ${USER_AGE}";
-console.log(expand(someString, process.env));
+console.log(interpolation.expand(someString, process.env));
 // execute using: USER_NAME='John' USER_AGE=19 node test-string.js
 // output:  Hi, my name is 'John'. I'm 19
 ```
@@ -67,7 +70,7 @@ let myJson = {
   password: 'P@ss#ord',
   url: 'https://${user}:${= encodeURIComponent(${password}) =}@${server}:${port}'
 };
-console.log(expand(myJson)); // Look for values inside itself
+console.log(interpolation.expand(myJson)); // Look for values inside itself
 // output:
 {
   "port": "8080",
@@ -87,7 +90,7 @@ let myJson = {
   url: 'https://${user}:${= encodeURIComponent(${password}) =}@${server}:${port}'
 };
 
-console.log(expand(myJson));
+console.log(interpolation.expand(myJson));
 // execute using: PORT=8080 USER_NAME='John' USER_PASSWORD='P@ss#ord' node test-json.js
 // output:
 {
@@ -100,13 +103,11 @@ console.log(expand(myJson));
 
 ```
 
-> Notice that `${==}` notation. It's a cool way to use JavaScript expression (not expression<u>_s_</u>, yet, just a single line).
-
-
+> Notice that `${= =}` notation. It's a cool way to use JavaScript expression (not expression<u>_s_</u>, yet, just a single line).
 
 ## Definition
 
-Syntax: `expand(obj, values = null, options = {});`
+Syntax: `interpolation.expand(obj, values = null, options = null);`
 
 The `expand` function takes 3 parameters
 
@@ -130,15 +131,14 @@ The values for the interpolated parameter placeholders (i.e. `${param-name}`). I
 
 ```javascript
 {
-  debug: false,
   prefix: '${',
   suffix: '}',
   subKeyPointer: '.',
-  funcSpecifier: '=',
-  escapeSpecifier: '*'
+  funcSpecifier: '=', // *read-only
+  escapeSpecifier: '*' // *read-only
 }
 ```
-more in [`Configurations`](#Configurations)
+more in [`Configurations`](#configurations)
 
 #### returns:
 
@@ -150,15 +150,7 @@ Based upon the type of the [`obj`](#obj). In case of any unsupported types, orig
 
 #### Configurations
 
-The [`options`](#options) setup. Each section can be individually set through Environment Variables INTERPOLATE_OPTION_[*CONFIGNAME*] (or you can also set it inside [`values`](#values) or `json` type [`obj`](#obj). See an extreme [Example](tests/config.func.custom.option.json))
-
-###### debug
-
-- type: `boolean`
-- default: `false`
-- Environment Variable override: `INTERPOLATE_OPTION_DEBUG`
-
-Set it true to turn on logging to help debug why certain things are not working as expected. Can be turned on [globally](<#debug-1>).
+The [`options`](#options) setup. Each section can be individually set through Environment Variables INTERPOLATE\_OPTION\_[*CONFIGNAME*] (or you can also set it inside [`values`](#values) or `json` type [`obj`](#obj). See an extreme [Example](tests/config.func.custom.option.json))
 
 ###### prefix
 
@@ -182,119 +174,92 @@ The suffix notation for an interpolation parameter.
 - default: `.`
 - Environment Variable override: `INTERPOLATE_OPTION_SUBKEYPOINTER`
 
-The json  object tree sub-node pointer for interpolation parameter.
+The json object tree sub-node pointer for interpolation parameter. The possible value is restricted to dot(`.`), hash(`#`), underscore(`_`) & colon(`:`) (or it's multiple, like: `::` etc)
 
 ```javascript
 let json = {
-    a: "A",
-    b: "B",
-    c: {
-        d: "D",
-        e: "E",
-        f: {
-            g: "G"
-        }
-    }
-}
+  a: 'A',
+  b: 'B',
+  c: {
+    d: 'D',
+    e: 'E',
+    f: {
+      g: 'G',
+    },
+  },
+};
 
 // If  subKeyPointer = '.'
 {
-    reference: "${c.d}"
+  reference: '${c.d}';
 }
 
 // If  subKeyPointer = '#'
 {
-    reference: "${c#f#g}"
+  reference: '${c#f#g}';
 }
 ```
 
-
-
-###### funcSpecifier*
+###### funcSpecifier \*(read-only)
 
 - type: `string`
-- default: `=`
-- Environment Variable override: `INTERPOLATE_OPTION_FUNCSPECIFIER`
+- ***fixed value***: `=`
 
-The notation after [`prefix`](#prefix) & before [`suffix`](#suffix) to describe a function expression boundary. (e.g. `${= Func(${param1}, ${param2}) =}`). Must not be same as any of [`prefix`](#prefix), [`suffix`](#suffix), [`subKeyPointer`](#subKeyPointer) or [`escapeSpecifier`](#escapeSpecifier).
+The notation after [`prefix`](#prefix) & before [`suffix`](#suffix) to describe a function expression boundary. (e.g. `${= Func(${param1}, ${param2}) =}`).
 
-> It should not be touched unless really needed. Should be a single character (preferably a special character, e.g. #, =, *, <, >, ~ etc)
-
-###### escapeSpecifier*
+###### escapeSpecifier \*(read-only)
 
 - type: `string`
-- default: `*`
-- Environment Variable override: `INTERPOLATE_OPTION_ESCAPESPECIFIER`
+- ***fixed value***: `*`
 
-The notation after [`prefix`](#prefix) to escape string expression for certain data-types (like number, boolean etc.). Must not be same as any of [`prefix`](#prefix), [`suffix`](#suffix), [`subKeyPointer`](#subKeyPointer) or [`funcSpecifier`](#funcSpecifier).
+The notation after [`prefix`](#prefix) to escape string expression for certain data-types (like number, boolean etc.).
 
 > This option is only applicable to `json` type [`obj`](#obj)
 
-> It should not also be touched either unless really needed. Should be a single character (preferably a special character, e.g. #, =, *, <, >, ~ etc).
-
 ```javascript
 let json = {
-    myKey: "${*keyValue}",
-    isKey: "${*boolValue}"
-}
+  myKey: '${*keyValue}',
+  isKey: '${*boolValue}',
+};
 // values = {keyValue: 123.45, boolValue: false}
- interpolatedJson = {
-    myKey: 123.45, // instead of myKey: "123.45"
-    isKey: false // instead of isKey: "false"
-}
+interpolatedJson = {
+  myKey: 123.45, // instead of myKey: "123.45"
+  isKey: false, // instead of isKey: "false"
+};
 ```
 
-
-
-### Functions
+### Methods
 
 ```javascript
-// When declared as a varible at the beginning
+// When declared as a variable at the beginning
 const interpolation = require('interpolate-json');
 ```
 
 #### expand()
 
-Described so far since [`Declaration`](#Declaration) & [`Definition`](#Definition).
+Described so far since [`Declaration`](#declaration) & [`Definition`](#definition).
 
 ```javascript
 // Syntax I
-const interpolation = require('interpolate-json');
+const interpolation = require('interpolate-json').interpolation;
 interpolation.expand(obj, value);
 
 // Syntax II
-const { expand } = require('interpolate-json');
-expand(obj, value);
+const { interpolation } = require('interpolate-json');
+interpolation.expand(obj, value);
 ```
 
 #### debug()
 
-Globally turn on [`debug`](#debug) flag.
+Globally turn on `debug` flag. If set to `true`, it'll write console output of detailed operations to help debug why certain things are (not) working as expected.
+
+Can also be turned on via setting Environment Variable `INTERPOLATE_OPTION_DEBUG` to `true`
 
 ```javascript
 // to globally turn it on
-const interpolation = require('interpolate-json').debug();
+const interpolation = require('interpolate-json').interpolation;
+interpolation.debug();
 
-// to globally turn off
+// to globally turn off debugging output
 interpolation.debug(false);
-```
-
-#### reset()
-
-Resets the [options](#options).
-
-```javascript
-const interpolation = require('interpolate-json');
-
-// do some custom job
-let result = interpolation.expand(someObj, process.env, {
-  debug: true, // globally turn it on
-  prefix: '{{', // not affecting next call
-  suffix: '}}'
-});
-
-let result2 = interpolation.expand(someOtherObj); // `dubug` is still set as true, `prefix` & `siffix` will be '${' & '}' respectively
-
-// now if you want to reset debug & all other options
-interpolation.reset();
 ```
