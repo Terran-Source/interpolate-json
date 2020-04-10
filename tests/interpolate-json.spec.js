@@ -102,4 +102,14 @@ describe('#interpolation.expand(JSON)', function () {
     expect(result).to.be.a('Object');
     expect(result).to.deep.equal(json);
   });
+  it('processed successfully with plain json with Extra Environment Variables', function () {
+    // arrange
+    const json = parse(path.resolve('config.plain.json'), 'utf8');
+    // act
+    const result = context.interpolation.expand(json, process.env);
+    // assert
+    console.log(`result:${JSON.stringify(result, null, 2)}`);
+    expect(result).to.be.a('Object');
+    expect(result).to.deep.equal(json);
+  });
 });
