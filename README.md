@@ -150,7 +150,7 @@ Based upon the type of the [`obj`](#obj). In case of any unsupported types, orig
 
 #### Configurations
 
-The [`options`](#options) setup. Each section can be individually set through Environment Variables INTERPOLATE*OPTION*[*CONFIGNAME*] (or you can also set it inside [`values`](#values) or `json` type [`obj`](#obj). See an extreme [Example](tests/config.func.custom.option.json))
+The [`options`](#options) setup. Each section can be individually set through Environment Variables INTERPOLATE\_OPTION\_[*CONFIGNAME*] (or you can also set it inside [`values`](#values) or `json` type [`obj`](#obj). See an extreme [Example](tests/config.func.custom.option.json))
 
 ###### prefix
 
@@ -228,7 +228,7 @@ interpolatedJson = {
 };
 ```
 
-### Functions
+### Methods
 
 ```javascript
 // When declared as a variable at the beginning
