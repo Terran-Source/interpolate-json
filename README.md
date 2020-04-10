@@ -138,7 +138,7 @@ The values for the interpolated parameter placeholders (i.e. `${param-name}`). I
   escapeSpecifier: '*' // *read-only
 }
 ```
-more in [`Configurations`](#Configurations)
+more in [`Configurations`](#configurations)
 
 #### returns:
 
@@ -151,14 +151,6 @@ Based upon the type of the [`obj`](#obj). In case of any unsupported types, orig
 #### Configurations
 
 The [`options`](#options) setup. Each section can be individually set through Environment Variables INTERPOLATE*OPTION*[*CONFIGNAME*] (or you can also set it inside [`values`](#values) or `json` type [`obj`](#obj). See an extreme [Example](tests/config.func.custom.option.json))
-
-###### debug
-
-- type: `boolean`
-- default: `false`
-- Environment Variable override: `INTERPOLATE_OPTION_DEBUG`
-
-Set it true to turn on logging to help debug why certain things are not working as expected. Can be turned on [globally](#debug-1).
 
 ###### prefix
 
@@ -182,7 +174,7 @@ The suffix notation for an interpolation parameter.
 - default: `.`
 - Environment Variable override: `INTERPOLATE_OPTION_SUBKEYPOINTER`
 
-The json object tree sub-node pointer for interpolation parameter.
+The json object tree sub-node pointer for interpolation parameter. The possible value is restricted to dot(`.`), hash(`#`), underscore(`_`) & colon(`:`) (or it's multiple, like: `::` etc)
 
 ```javascript
 let json = {
@@ -208,14 +200,14 @@ let json = {
 }
 ```
 
-###### funcSpecifier\*
+###### funcSpecifier \*(read-only)
 
 - type: `string`
 - ***fixed value***: `=`
 
 The notation after [`prefix`](#prefix) & before [`suffix`](#suffix) to describe a function expression boundary. (e.g. `${= Func(${param1}, ${param2}) =}`).
 
-###### escapeSpecifier\*
+###### escapeSpecifier \*(read-only)
 
 - type: `string`
 - ***fixed value***: `*`
@@ -245,7 +237,7 @@ const interpolation = require('interpolate-json');
 
 #### expand()
 
-Described so far since [`Declaration`](#Declaration) & [`Definition`](#Definition).
+Described so far since [`Declaration`](#declaration) & [`Definition`](#definition).
 
 ```javascript
 // Syntax I
@@ -259,7 +251,7 @@ interpolation.expand(obj, value);
 
 #### debug()
 
-Globally turn on [`debug`](#debug) flag. If set to `true`, it'll write console output of detailed operations.
+Globally turn on `debug` flag. If set to `true`, it'll write console output of detailed operations to help debug why certain things are (not) working as expected.
 
 Can also be turned on via setting Environment Variable `INTERPOLATE_OPTION_DEBUG` to `true`
 
