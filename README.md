@@ -103,11 +103,11 @@ console.log(interpolation.expand(myJson));
 
 ```
 
-> Notice that `${==}` notation. It's a cool way to use JavaScript expression (not expression<u>_s_</u>, yet, just a single line).
+> Notice that `${= =}` notation. It's a cool way to use JavaScript expression (not expression<u>_s_</u>, yet, just a single line).
 
 ## Definition
 
-Syntax: `interpolation.expand(obj, values = null, options = {});`
+Syntax: `interpolation.expand(obj, values = null, options = null);`
 
 The `expand` function takes 3 parameters
 
@@ -131,12 +131,11 @@ The values for the interpolated parameter placeholders (i.e. `${param-name}`). I
 
 ```javascript
 {
-  debug: false,
   prefix: '${',
   suffix: '}',
   subKeyPointer: '.',
-  funcSpecifier: '=',
-  escapeSpecifier: '*'
+  funcSpecifier: '=', // *read-only
+  escapeSpecifier: '*' // *read-only
 }
 ```
 more in [`Configurations`](#Configurations)

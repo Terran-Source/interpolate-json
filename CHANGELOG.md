@@ -8,6 +8,7 @@
   const { interpolation } = require('interpolate-json');
   ```
 - removed `reset()`
+- `suffix` is mandatory if function expression is used.
 - `subKeyPointer` is restricted to dot(`.`), hash(`#`), underscore(`_`) & colon(`:`) (or it's multiple, like: `::` etc)
 - `funcSpecifier` is fixed to equal(`=`)
 - `escapeSpecifier` is fixed to star(`*`)
