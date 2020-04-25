@@ -20,6 +20,17 @@ describe('#interpolation.expand(String)', function () {
       `Hi, my name is '${values.name}'. I'm ${values.age}. I am ${values.education.degree} ${values.education.profession}.`
     );
   });
+  it('processed successfully with single placeholder', function () {
+    // arrange
+    const str = "Hi, my name is '${name}'";
+    const values = { name: 'David' };
+    // act
+    const result = context.interpolation.expand(str, values);
+    // assert
+    console.log(`result:${result}`);
+    expect(result).to.be.a('string');
+    expect(result).to.be.equal(`Hi, my name is '${values.name}'`);
+  });
   it('processed successfully with plain string', function () {
     // arrange
     const str = "Hi, my name is 'David'. I'm 18";
