@@ -12,7 +12,7 @@ Supports:
 2. `${json}` interpolation
 3. `${multi.level}` json notation
 4. single `${= JavaScript.expression() =}` evaluation
-5. custom `{{parameter boundary}}` declaration
+5. custom `{{parameter_boundary}}` declaration
 
 ## Install
 
