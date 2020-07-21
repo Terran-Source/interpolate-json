@@ -5,7 +5,8 @@ node_js:
   - 10.12
   - lts/dubnium
   - lts/erbium
-  - latest
+  - lts/*
+  - node
 before_install:
   # latest npm, gulp
   - npm i -g gulp-cli # npm yarn
