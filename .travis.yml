@@ -2,10 +2,10 @@ os: linux
 dist: bionic
 language: node_js
 node_js:
-  - 8
-  - lts/carbon
+  - 10.12
   - lts/dubnium
   - lts/erbium
+  - latest
 before_install:
   # latest npm, gulp
   - npm i -g gulp-cli # npm yarn
