@@ -1,6 +1,6 @@
 {
   "name": "interpolate-json",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Interpolate a Javascript Object or String with json - Advanced",
   "main": "index.js",
   "scripts": {
@@ -31,13 +31,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "contributors": [{
-    "name": "Tamal Patra",
-    "email": "patra.tamal@gmail.com",
-    "url": "https://sourcerer.io/turn-a-round",
-    "contributions": 100,
-    "hireable": true
-  }],
+  "contributors": [
+    {
+      "name": "Tamal Patra",
+      "email": "patra.tamal@gmail.com",
+      "url": "https://sourcerer.io/turn-a-round",
+      "contributions": 100,
+      "hireable": true
+    }
+  ],
   "dependencies": {
     "custom-exception": "^0.1.2",
     "extend": "^3.0.2",
