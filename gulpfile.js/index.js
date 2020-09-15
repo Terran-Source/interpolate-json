@@ -20,10 +20,22 @@ const excludedDirectories = [
   'gulpfile.js',
   '.vs',
   '.vscode',
-  '.github'
+  '.github',
+  '.git',
 ];
-const excludes = dirs => dirs.map(dir => `!.${safeDir(dir)}/**`);
-const safeDir = dir =>
+const excludedFiles = [
+  '.gitignore',
+  '.editorconfig',
+  '.*rc',
+  '.travis.yml',
+  'CHANGELOG.md',
+];
+const sanitizeItems = ['yarn.lock'];
+const excludes = (dirs, files) => [
+  ...dirs.map((dir) => `!.${safeDir(dir)}/**`),
+  ...files.map((file) => `!./**${safeDir(file)}`),
+];
+const safeDir = (dir) =>
   !dir
     ? ''
     : '.' === dir
@@ -31,17 +43,17 @@ const safeDir = dir =>
     : dir.toString().startsWith('/')
     ? dir
     : `/${dir}`;
-const scriptDir = dir => [
+const scriptDir = (dir) => [
   `.${safeDir(dir)}/**/*.${scriptExt}`,
-  `.${safeDir(dir)}/**/.*/**/*.${scriptExt}`
+  `.${safeDir(dir)}/**/.*/**/*.${scriptExt}`,
 ];
-const copyDir = dir => [
+const copyDir = (dir) => [
   `.${safeDir(dir)}/**`,
   `.${safeDir(dir)}/**/.*`,
   `.${safeDir(dir)}/**/.*/**`,
-  ...scriptDir(dir).map(d => `!${d}`)
+  ...scriptDir(dir).map((d) => `!${d}`),
 ];
-const outputDir = dir => `.${safeDir(outputDirectory)}${safeDir(dir)}`;
+const outputDir = (dir) => `.${safeDir(outputDirectory)}${safeDir(dir)}`;
 let allExcluded = [];
 const compressScripts = (dir, isCustom) =>
   require(`./${compressJob}`)(
@@ -55,9 +67,9 @@ const copyScripts = (dir, isCustom) =>
     [...copyDir(dir), ...allExcluded],
     outputDir(dir)
   );
-const dirTasks = dirs => [
-  ...dirs.map(dir => `${compressJob}-${dir}`),
-  ...dirs.map(dir => `${copyJob}-${dir}`)
+const dirTasks = (dirs) => [
+  ...dirs.map((dir) => `${compressJob}-${dir}`),
+  ...dirs.map((dir) => `${copyJob}-${dir}`),
 ];
 const prepareTasks = (...dirs) => {
   dirs.forEach(compressScripts);
@@ -67,19 +79,24 @@ const prepareTasks = (...dirs) => {
 // prepare for all build & test tasks
 prepareTasks(sourceDirectories, testDirectories);
 // prepare for everything else left
-allExcluded = excludes(excludedDirectories);
+allExcluded = excludes(excludedDirectories, excludedFiles);
 compressScripts('.', localJob);
 copyScripts('.', localJob);
 
 // clean output directory
-task('clean', cb => {
+task('clean', (cb) => {
   del.sync(outputDirectory, { force: true });
+  cb();
+});
+task('sanitize', (cb) => {
+  del.sync(sanitizeItems.map(outputDir), { force: true });
   cb();
 });
 
 const preBuild = series(
   'clean',
-  parallel(...dirTasks(sourceDirectories), ...dirTasks(localDirectories))
+  parallel(...dirTasks(sourceDirectories), ...dirTasks(localDirectories)),
+  'sanitize'
 );
 const preTest = series(
   'clean',

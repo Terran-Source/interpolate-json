@@ -1,6 +1,6 @@
 'use strict';
 
-const { BadRequest } = require('../lib/exceptions');
+const { BadRequest } = require('custom-exception');
 const extend = require('extend');
 const { task, src, dest } = require('gulp');
 const terser = require('gulp-terser');
@@ -9,14 +9,14 @@ const { pipeline } = require('readable-stream');
 const _terserOptions = {
   ecma: 6,
   output: {
-    beautify: false
+    beautify: false,
   },
   keep_classnames: true,
-  keep_fnames: true
+  keep_fnames: true,
 };
 
 const checkMandatoryParams = (...args) => {
-  args.forEach(arg => {
+  args.forEach((arg) => {
     if (!arg[0]) throw new BadRequest(`Please provide parameter: "${arg[1]}".`);
   });
 };
@@ -30,12 +30,12 @@ const main = (taskName, srcFiles, outputDirectory, terserOptions = {}) => {
 
   extend(_terserOptions, terserOptions);
   // minify javascripts
-  return task(taskName, cb => {
+  return task(taskName, (cb) => {
     pipeline(
       src(srcFiles),
       terser(_terserOptions),
       dest(outputDirectory),
-      err => {
+      (err) => {
         let message = '';
         let success = true;
         if (err) {
@@ -46,10 +46,9 @@ const main = (taskName, srcFiles, outputDirectory, terserOptions = {}) => {
           message = `${taskName} task completed successfully`;
           console.log(message);
         }
-        return success ? Promise.resolve(message) : Promise.reject(message);
+        cb();
       }
     );
-    cb();
   });
 };
 
