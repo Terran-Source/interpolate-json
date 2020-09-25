@@ -1,3 +1,31 @@
+## 2.1.2
+- exporting `RegexEscaped` with main
+
+## 2.1.1
+- polished gulp
+- upgraded packages
+
+## 2.1.0
+- travis - test twice (before minification & after)
+- deploy on minimum node version upgrade
+- travis change to add latest
+- node minimum version update
+
+## 2.0.4
+- upgrade package
+- Bump lodash from 4.17.15 to 4.17.19
+
+## 2.0.3
+- minor rename & documentation update
+
+## 2.0.2
+- Fixing #3
+- Regex sticky mess
+
+## 2.0.1
+- fix non debug typo
+- extra tests
+
 ## 2.0.0
 #### Changes
 - declaration syntax.
