@@ -1,3 +1,6 @@
+## 2.1.3
+- package upgrade
+
 ## 2.1.2
 - exporting `RegexEscaped` with main
 
