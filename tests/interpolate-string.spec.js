@@ -5,11 +5,12 @@ describe('#interpolation.expand(String)', function () {
   it('processed successfully', function () {
     // arrange
     const str =
-      "Hi, my name is '${name}'. I'm ${age}. I am ${education.degree} ${education.profession}.";
+      "Hi, my name is '${name}'. I'm ${age}. I am ${education.degree} ${education.profession}. My Contact No: ${mobileNo}";
     const values = {
       name: 'David',
       age: 18,
       education: { degree: 'M.B.B.S', profession: 'Doctor' },
+      mobileNo: 9999900000,
     };
     // act
     const result = context.interpolation.expand(str, values);
@@ -17,7 +18,7 @@ describe('#interpolation.expand(String)', function () {
     console.log(`result:${result}`);
     expect(result).to.be.a('string');
     expect(result).to.be.equal(
-      `Hi, my name is '${values.name}'. I'm ${values.age}. I am ${values.education.degree} ${values.education.profession}.`
+      `Hi, my name is '${values.name}'. I'm ${values.age}. I am ${values.education.degree} ${values.education.profession}. My Contact No: ${values.mobileNo}`
     );
   });
   it('processed successfully with single placeholder', function () {
