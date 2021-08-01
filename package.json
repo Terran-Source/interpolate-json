@@ -54,6 +54,6 @@
     "readable-stream": "^3.6.0"
   },
   "engines": {
-    "node": ">=10.12.0"
+    "node": ">=12.0.0"
   }
 }

@@ -1,3 +1,6 @@
+## 2.1.5
+- changed minimum `node` to v12 (lts/erbium). evolving with `mocha` dependency
+
 ## 2.1.4
 - package upgrade
 
