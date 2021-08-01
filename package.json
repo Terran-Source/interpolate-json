@@ -1,6 +1,6 @@
 {
   "name": "interpolate-json",
-  "version": "2.1.5",
+  "version": "2.2.0",
   "description": "Interpolate a Javascript Object or String with json - Advanced",
   "main": "index.js",
   "scripts": {
