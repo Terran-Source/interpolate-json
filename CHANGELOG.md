@@ -1,3 +1,6 @@
+## 2.2.1
+- minor documentation change
+
 ## 2.2.0
 - upgrade to minor version
 
