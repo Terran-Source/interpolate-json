@@ -2,7 +2,7 @@
 
 [![Travis (.org)](https://img.shields.io/travis/Terran-Source/interpolate-json?logo=travis&style=plastic)](https://travis-ci.org/Terran-Source/interpolate-json) [![node](https://img.shields.io/node/v/interpolate-json?logo=nodejs&style=plastic)](https://www.npmjs.com/package/interpolate-json) [![GitHub](https://img.shields.io/github/license/Terran-Source/interpolate-json?logo=github&style=plastic)](LICENSE)
 
-Interpolate a Javascript Object or string with json - Advanced (or ***Substitution***, as others may like to call it).
+Interpolate a Javascript Object (json) or string with (another) **json** - Advanced (or ***Substitution***, as others may like to call it).
 
 Minimalist & lightweight ;) approach to handle interpolation, which packs way more punch than simple string *parameter* replacement.
 
