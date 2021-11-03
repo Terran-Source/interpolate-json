@@ -1,3 +1,6 @@
+## 2.2.2
+- package upgrade
+
 ## 2.2.1
 - minor documentation change
 
