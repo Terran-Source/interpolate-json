@@ -68,16 +68,16 @@
     "type-detect": "^4.0.8"
   },
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^7.0.8",
+    "@size-limit/preset-small-lib": "^8.2.4",
     "chai": "^4.3.7",
     "del": "^6.1.1",
     "gulp": "^4.0.2",
     "gulp-terser": "^2.1.0",
-    "mocha": "^9.2.2",
-    "readable-stream": "^3.6.2",
-    "size-limit": "^7.0.8"
+    "mocha": "^10.2.0",
+    "readable-stream": "^4.3.0",
+    "size-limit": "^8.2.4"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.0"
   }
 }

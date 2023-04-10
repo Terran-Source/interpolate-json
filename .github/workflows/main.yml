@@ -21,7 +21,7 @@ jobs:
 
     strategy:
       matrix:
-        node: ["12.x", "14.x", "16.x", "18.x"]
+        node: ["14.x", "16.x", "18.x", "19.x"]
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     runs-on: ${{ matrix.os }}
@@ -45,7 +45,7 @@ jobs:
         id: check_release
         if: >-
           github.event_name == 'release' &&
-          matrix.node == '12.x' &&
+          matrix.node == '14.x' &&
           matrix.os == 'ubuntu-latest'
         run: |
           echo "release=true" >> $GITHUB_OUTPUT
