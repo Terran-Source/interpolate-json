@@ -92,6 +92,7 @@ jobs:
         with:
           registry-url: "https://registry.npmjs.org"
           always-auth: true
+          working-directory: dist
 
       - name: Publish
         if: ${{ steps.check_release.outputs.release == 'true' }}
@@ -102,3 +103,4 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_PKG_PUBLISH_TOKEN }}
           NODE_ENV: production
+        working-directory: dist
