@@ -7,6 +7,9 @@
     "bdd-test": "cd tests && mocha ./**.spec.js",
     "unit-test": "mocha ./lib/**.spec.js",
     "test": "yarn run bdd-test",
+    "pre-size": "yarn build",
+    "size": "size-limit --json",
+    "analyze": "size-limit --why",
     "pre-check": "gulp",
     "build": "gulp preBuild"
   },
