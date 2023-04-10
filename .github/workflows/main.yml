@@ -47,7 +47,7 @@ jobs:
           matrix.node == '12.x' &&
           matrix.os == 'ubuntu-latest'
         run: |
-          echo "::set-output name=release::true"
+          echo "release=true" >> $GITHUB_OUTPUT
 
       - name: Checkout repo
         uses: actions/checkout@v2
