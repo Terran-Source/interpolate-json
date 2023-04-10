@@ -3,10 +3,11 @@ on:
   push:
   pull_request:
     branches:
-      - legacy/v2**
-      - "feature/v2**"
-      - "hotfix/v2**"
-      - "release/v2**"
+      - master
+      - dev
+      - "feature/**"
+      - "hotfix/**"
+      - "release/**"
   release:
     types: [published]
 
