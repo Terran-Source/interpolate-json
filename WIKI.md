@@ -23,6 +23,12 @@ npm install interpolate-json
 # or with Yarn
 yarn add interpolate-json
 ```
+> Imp: If you're using Node v12 then install the legacy version `"^2.3.0"`
+> ```
+> npm install interpolate-json@^2.3.0
+> // or
+> yarn add interpolate-json@^2.3.0
+> ```
 
 ## Usage
 
