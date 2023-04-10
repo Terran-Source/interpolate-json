@@ -19,10 +19,10 @@ jobs:
         with:
           install-command: yarn install --frozen-lockfile --ignore-scripts
       - name: Check Size-Limit
-        uses: andresz1/size-limit-action@v1.7.0
+        uses: andresz1/size-limit-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          build_script: build
+          # build_script: build
           skip_step: install
           # script: yarn run size
           # directory: dist/
