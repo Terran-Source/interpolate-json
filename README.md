@@ -1,6 +1,6 @@
 # interpolate-json [![NPM version](https://img.shields.io/npm/v/interpolate-json.svg?style=plastic)](https://www.npmjs.com/package/interpolate-json)
 
-[![Travis (.org)](https://img.shields.io/travis/Terran-Source/interpolate-json?logo=travis&style=plastic)](https://travis-ci.org/Terran-Source/interpolate-json) [![node](https://img.shields.io/node/v/interpolate-json?logo=nodejs&style=plastic)](https://www.npmjs.com/package/interpolate-json) [![GitHub](https://img.shields.io/github/license/Terran-Source/interpolate-json?logo=github&style=plastic)](LICENSE)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Terran-Source/interpolate-json/main.yml?event=push&label=Github-Build&style=plastic) [![node](https://img.shields.io/node/v/interpolate-json?logo=nodejs&style=plastic)](https://www.npmjs.com/package/interpolate-json) [![GitHub](https://img.shields.io/github/license/Terran-Source/interpolate-json?logo=github&style=plastic)](LICENSE)
 
 Interpolate a Javascript Object (json) or string with (another) **json** - Advanced (or ***Substitution***, as others may like to call it).
 
@@ -33,6 +33,10 @@ yarn add interpolate-json
 const interpolation = require('interpolate-json').interpolation;
 // or
 const { interpolation } = require('interpolate-json');
+```
+```typescript
+// or the import syntax
+import { interpolation } from 'interpolate-json';
 ```
 
 #### string
@@ -105,161 +109,4 @@ console.log(interpolation.expand(myJson));
 
 > Notice that `${= =}` notation. It's a cool way to use JavaScript expression (not expression<u>_s_</u>, yet, just a single line).
 
-## Definition
-
-Syntax: `interpolation.expand(obj, values = null, options = null);`
-
-The `expand` function takes 3 parameters
-
-##### obj
-
-- type: `string | json`
-
-The object to be interpolated. For `string` type, [`values`](#values) must be provided. In case of `json` type, it can interpolate itself if the required values are all present.
-
-##### values
-
-- type: `json`
-- default: null
-
-The values for the interpolated parameter placeholders (i.e. `${param-name}`). In case of `json` type [`obj`](#obj), the [`values`](#values) override any of the existing [`obj`](#obj) properties (like, overriding with Environment variables). If any of the parameters is not present, it's replaced by empty string (`''`).
-
-##### options
-
-- type: `json`
-- default:
-
-```javascript
-{
-  prefix: '${',
-  suffix: '}',
-  subKeyPointer: '.',
-  funcSpecifier: '=', // *read-only
-  escapeSpecifier: '*' // *read-only
-}
-```
-more in [`Configurations`](#configurations)
-
-#### returns:
-
-- type: `string | json`
-
-Based upon the type of the [`obj`](#obj). In case of any unsupported types, original [`obj`](#obj) will be returned.
-
-> [Note: it does not change the actual [`obj`](#obj)]
-
-#### Configurations
-
-The [`options`](#options) setup. Each section can be individually set through Environment Variables INTERPOLATE\_OPTION\_[*CONFIGNAME*] (or you can also set it inside [`values`](#values) or `json` type [`obj`](#obj). See an extreme [Example](tests/config.func.custom.option.json))
-
-###### prefix
-
-- type: `string`
-- default: `${`
-- Environment Variable override: `INTERPOLATE_OPTION_PREFIX`
-
-The prefix notation for an interpolation parameter.
-
-###### suffix
-
-- type: `string`
-- default: `}`
-- Environment Variable override: `INTERPOLATE_OPTION_SUFFIX`
-
-The suffix notation for an interpolation parameter.
-
-###### subKeyPointer
-
-- type: `string`
-- default: `.`
-- Environment Variable override: `INTERPOLATE_OPTION_SUBKEYPOINTER`
-
-The json object tree sub-node pointer for interpolation parameter. The possible value is restricted to dot(`.`), hash(`#`), underscore(`_`) & colon(`:`) (or it's multiple, like: `::` etc)
-
-```javascript
-let json = {
-  a: 'A',
-  b: 'B',
-  c: {
-    d: 'D',
-    e: 'E',
-    f: {
-      g: 'G',
-    },
-  },
-};
-
-// If  subKeyPointer = '.'
-{
-  reference: '${c.d}';
-}
-
-// If  subKeyPointer = '#'
-{
-  reference: '${c#f#g}';
-}
-```
-
-###### funcSpecifier \*(read-only)
-
-- type: `string`
-- ***fixed value***: `=`
-
-The notation after [`prefix`](#prefix) & before [`suffix`](#suffix) to describe a function expression boundary. (e.g. `${= Func(${param1}, ${param2}) =}`).
-
-###### escapeSpecifier \*(read-only)
-
-- type: `string`
-- ***fixed value***: `*`
-
-The notation after [`prefix`](#prefix) to escape string expression for certain data-types (like number, boolean etc.).
-
-> This option is only applicable to `json` type [`obj`](#obj)
-
-```javascript
-let json = {
-  myKey: '${*keyValue}',
-  isKey: '${*boolValue}',
-};
-// values = {keyValue: 123.45, boolValue: false}
-interpolatedJson = {
-  myKey: 123.45, // instead of myKey: "123.45"
-  isKey: false, // instead of isKey: "false"
-};
-```
-
-### Methods
-
-```javascript
-// When declared as a variable at the beginning
-const interpolation = require('interpolate-json');
-```
-
-#### expand()
-
-Described so far since [`Declaration`](#declaration) & [`Definition`](#definition).
-
-```javascript
-// Syntax I
-const interpolation = require('interpolate-json').interpolation;
-interpolation.expand(obj, value);
-
-// Syntax II
-const { interpolation } = require('interpolate-json');
-interpolation.expand(obj, value);
-```
-
-#### debug()
-
-Globally turn on `debug` flag. If set to `true`, it'll write console output of detailed operations to help debug why certain things are (not) working as expected.
-
-Can also be turned on via setting Environment Variable `INTERPOLATE_OPTION_DEBUG` to `true`
-
-```javascript
-// to globally turn it on
-const interpolation = require('interpolate-json').interpolation;
-interpolation.debug();
-
-// to globally turn off debugging output
-interpolation.debug(false);
-```
+Get the full documentation in [WIKI](https://github.com/Terran-Source/interpolate-json/blob/master/WIKI.md)

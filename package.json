@@ -6,7 +6,9 @@
   "scripts": {
     "bdd-test": "cd tests && mocha ./**.spec.js",
     "unit-test": "mocha ./lib/**.spec.js",
-    "test": "npm run bdd-test"
+    "test": "yarn run bdd-test",
+    "pre-check": "gulp",
+    "build": "gulp preBuild"
   },
   "repository": {
     "type": "git",
@@ -40,18 +42,34 @@
       "hireable": true
     }
   ],
+  "size-limit": [
+    {
+      "path": "dist",
+      "limit": "15 KB"
+    },
+    {
+      "path": "dist/index.js",
+      "limit": "1 KB"
+    },
+    {
+      "path": "dist/ib/main.js",
+      "limit": "5 KB"
+    }
+  ],
   "dependencies": {
     "custom-exception": "^0.1.2",
     "extend": "^3.0.2",
     "type-detect": "^4.0.8"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
-    "del": "^6.0.0",
+    "@size-limit/preset-small-lib": "^8.2.4",
+    "chai": "^4.3.7",
+    "del": "^6.1.1",
     "gulp": "^4.0.2",
     "gulp-terser": "^2.1.0",
-    "mocha": "^9.1.3",
-    "readable-stream": "^3.6.0"
+    "mocha": "^10.2.0",
+    "readable-stream": "^3.6.2",
+    "size-limit": "^8.2.4"
   },
   "engines": {
     "node": ">=12.0.0"

@@ -1,0 +1,105 @@
+name: CI
+on:
+  push:
+  pull_request:
+    branches:
+      - master
+      - dev
+      - "feature/**"
+      - "hotfix/**"
+      - "release/**"
+  release:
+    types: [published]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run-matrix:
+    name: "CI: Node: v${{ matrix.node }} on ${{ matrix.os }}"
+
+    strategy:
+      matrix:
+        node: ["12.x", "14.x", "16.x", "18.x"]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Intro
+        shell: bash
+        env:
+          CUR_EVENT: ${{ toJSON(github.event) }}
+        run: |
+          echo $CUR_EVENT > event_detail.txt
+          cat event_detail.txt
+          rm -f event_detail.txt
+          echo 'EventName: ${{ github.event_name }}'
+          echo 'Workflow: ${{ github.workflow }}'
+          echo 'Ref: ${{ github.ref }}'
+          echo 'RefName: ${{ github.ref_name }}'
+          echo 'RefType: ${{ github.ref_type }}'
+
+      - name: Check if `Release`
+        id: check_release
+        if: >-
+          github.event_name == 'release' &&
+          matrix.node == '12.x' &&
+          matrix.os == 'ubuntu-latest'
+        run: |
+          echo "::set-output name=release::true"
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node ${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: yarn
+
+      - name: Install deps and build (with cache)
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: yarn install --frozen-lockfile --ignore-scripts
+
+      # - name: Lint
+      #   run: yarn lint
+
+      - name: Test
+        run: yarn test --ci --coverage --maxWorkers=2
+
+      - name: Pre-Check
+        run: yarn run pre-check
+
+      - name: Pre-Check - Install deps and build (with cache)
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: yarn install --frozen-lockfile --ignore-scripts
+          working-directory: dist
+
+      - name: Pre-Check - Test
+        run: yarn test --ci --coverage --maxWorkers=2
+        working-directory: dist
+
+      - name: Build
+        run: yarn build
+
+      # Setup .npmrc file to publish to GitHub Packages
+      - name: Setup Publish
+        if: ${{ steps.check_release.outputs.release == 'true' }}
+        uses: actions/setup-node@v3
+        with:
+          registry-url: "https://registry.npmjs.org"
+          always-auth: true
+
+      - name: Publish
+        if: ${{ steps.check_release.outputs.release == 'true' }}
+        # run: |
+        #   echo 'Under Publish'
+        #   cat ${{ env.NPM_CONFIG_USERCONFIG }}
+        run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_PKG_PUBLISH_TOKEN }}
+          NODE_ENV: production
