@@ -26,4 +26,4 @@ jobs:
           skip_step: install
           # script: yarn run size
           # directory: dist/
-          package_manager: yarn
+          # package_manager: yarn
