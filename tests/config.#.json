@@ -6,7 +6,13 @@
     "baseKey": "${key}",
     "envKey": "subEnv_${ENV_VALUE}",
     "deepSubKey": {
-      "envKey": "deepEnv_${ENV_VALUE}"
+      "envKey": "deepEnv_${ENV_VALUE}",
+      "arr": [
+        "${key}",
+        "${ENV_VALUE}",
+        "hello ${subKey#deepSubKey#envKey}",
+        "solo"
+      ]
     }
   },
   "envKey": "${ENV_VALUE}",

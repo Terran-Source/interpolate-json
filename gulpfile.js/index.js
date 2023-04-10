@@ -27,8 +27,9 @@ const excludedFiles = [
   '.gitignore',
   '.editorconfig',
   '.*rc',
-  '.travis.yml',
+  '*.travis.yml',
   'CHANGELOG.md',
+  'WIKI.md',
 ];
 const sanitizeItems = ['yarn.lock'];
 const excludes = (dirs, files) => [

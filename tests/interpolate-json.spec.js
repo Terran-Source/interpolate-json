@@ -26,6 +26,12 @@ describe('#interpolation.expand(JSON)', function () {
         ` ${result.ENV_VALUE} & ${result.subKey.envKey} &` +
         ` ${result.subKey.deepSubKey.envKey} & ${result.DOES_NOT_EXIST || ''}`
     );
+    expect(result.subKey.deepSubKey.arr).to.have.ordered.members([
+      result.key,
+      result.ENV_VALUE,
+      `hello ${result.subKey.deepSubKey.envKey}`,
+      'solo',
+    ]);
   });
   it('processed successfully with override values', function () {
     // arrange
@@ -47,6 +53,12 @@ describe('#interpolation.expand(JSON)', function () {
         ` ${overrideVal.ENV_VALUE} & ${result.subKey.envKey} &` +
         ` ${result.subKey.deepSubKey.envKey} & ${result.DOES_NOT_EXIST || ''}`
     );
+    expect(result.subKey.deepSubKey.arr).to.have.ordered.members([
+      result.key,
+      overrideVal.ENV_VALUE,
+      `hello ${result.subKey.deepSubKey.envKey}`,
+      'solo',
+    ]);
   });
   it("processed successfully with override values (custom subKeyPointer: '#')", function () {
     // arrange
@@ -69,6 +81,12 @@ describe('#interpolation.expand(JSON)', function () {
         ` ${overrideVal.ENV_VALUE} & ${result.subKey.envKey} &` +
         ` ${result.subKey.deepSubKey.envKey} & ${result.DOES_NOT_EXIST || ''}`
     );
+    expect(result.subKey.deepSubKey.arr).to.have.ordered.members([
+      result.key,
+      overrideVal.ENV_VALUE,
+      `hello ${result.subKey.deepSubKey.envKey}`,
+      'solo',
+    ]);
   });
   it("processed successfully with override values (custom prefix: '{{', suffix: '}}', subKeyPointer: '::')", function () {
     // arrange
@@ -91,6 +109,34 @@ describe('#interpolation.expand(JSON)', function () {
         ` ${overrideVal.ENV_VALUE} & ${result.subKey.envKey} &` +
         ` ${result.subKey.deepSubKey.envKey} & ${result.DOES_NOT_EXIST || ''}`
     );
+    expect(result.subKey.deepSubKey.arr).to.have.ordered.members([
+      result.key,
+      overrideVal.ENV_VALUE,
+      `hello ${result.subKey.deepSubKey.envKey}`,
+      'solo',
+    ]);
+  });
+  it('processed successfully with array', function () {
+    // arrange
+    const data = [
+      '{{key}}',
+      '{{ENV_VALUE}}',
+      'hello {{subKey::envKey}}',
+      'solo',
+    ];
+    const options = { prefix: '{{', suffix: '}}', subKeyPointer: '::' };
+    const json = parse(path.resolve('config.plain.json'), 'utf8');
+    // act
+    const result = context.interpolation.expand(data, json, options);
+    // assert
+    console.log(`result:${JSON.stringify(result, null, 2)}`);
+    expect(result).to.be.a('Array');
+    expect(result).to.have.ordered.members([
+      json.key,
+      json.ENV_VALUE,
+      `hello ${json.subKey.envKey}`,
+      'solo',
+    ]);
   });
   it('processed successfully with plain json', function () {
     // arrange
