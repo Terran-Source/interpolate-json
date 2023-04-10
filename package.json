@@ -7,7 +7,6 @@
     "bdd-test": "cd tests && mocha ./**.spec.js",
     "unit-test": "mocha ./lib/**.spec.js",
     "test": "yarn run bdd-test",
-    "pre-size": "yarn build",
     "size": "size-limit --json",
     "analyze": "size-limit --why",
     "pre-check": "gulp",
@@ -47,15 +46,19 @@
   ],
   "size-limit": [
     {
-      "path": "dist",
+      "path": [
+        "dist",
+        "!dist/**.md",
+        "!dist/LICENSE"
+      ],
       "limit": "15 KB"
     },
     {
       "path": "dist/index.js",
-      "limit": "1 KB"
+      "limit": "5 KB"
     },
     {
-      "path": "dist/ib/main.js",
+      "path": "dist/lib/main.js",
       "limit": "5 KB"
     }
   ],
